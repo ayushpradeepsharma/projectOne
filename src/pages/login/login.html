@@ -12,7 +12,26 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
+  <form [formGroup]="loginForm">
+
+    <ion-item>
+      <ion-label stacked>EMAIL</ion-label>
+      <ion-input type="email" [(ngModel)]="user.email" #email formControlName="email"></ion-input>
+    </ion-item>
+    <div class="error-msg"></div>
+
+    <ion-item>
+      <ion-label stacked>PASSWORD</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" #password formControlName="password"></ion-input>
+    </ion-item>
+    <div class="error-msg"></div>
+
+    <button style="display: block;margin:auto; margin-top:2em;" ion-button round outline (click)="clickOnLogin()">LOGIN</button>
+  </form>
+
+  <button ion-button block clear (click)="clickOnForgotPassword()">Forgot Password</button>
+
+  <p text-center color="primary"><b>NOT A USER <span style="text-decoration: underline" (click)="clickOnCreateUser()">CREATE USER</span></b></p>
 </ion-content>

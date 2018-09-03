@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 /*
@@ -10,7 +9,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GlobalsProvider {
 
-  constructor(public http: HttpClient) {
+  userId : any;
+  constructor() {
     console.log('Hello GlobalsProvider Provider');
   }
 

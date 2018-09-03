@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import * as firebase from 'firebase';
+import * as moment from 'moment';
+import { GlobalsProvider } from '../globals/globals';
 
 /*
   Generated class for the FirebaseProvider provider.
@@ -10,8 +13,33 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FirebaseProvider {
 
-  constructor(public http: HttpClient) {
+
+  constructor(public globals:GlobalsProvider) {
     console.log('Hello FirebaseProvider Provider');
   }
+
+  signupUser(email: string, password: string, name: string, phoneNumber: number) {
+		return new Promise((resolve, reject) => {
+			firebase.auth().createUserWithEmailAndPassword(email, password).then((newUser) => {
+
+        console.log("data output", email,name,phoneNumber);
+        let createdAt= moment().format();
+				firebase.database().ref('users').child(newUser.user.uid).set({
+					id: newUser.user.uid,
+					email: email,
+					name: name,
+					phoneNumber: phoneNumber,
+					createdAt: createdAt,
+				});
+				resolve(newUser);
+				this.globals.userId = newUser.user.uid;
+			}).catch((error) => {
+				console.log('Error getting location', error);
+				reject(error);
+				// });
+			});
+
+		});
+	}
 
 }

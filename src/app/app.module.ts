@@ -10,7 +10,8 @@ import { RegisterPage } from '../pages/register/register';
 import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
 import { PrivacyPoliciesPage } from '../pages/privacy-policies/privacy-policies';
 import { ContentPoliciesPage } from '../pages/content-policies/content-policies';
-
+import { LoginPage } from '../pages/login/login';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
 
 import { FirebaseProvider } from '../providers/firebase/firebase';
@@ -23,9 +24,11 @@ import { SMS } from '@ionic-native/sms';
     MyApp,
     HomePage,
     RegisterPage,
+    LoginPage,
     TermsOfServicePage,
     PrivacyPoliciesPage,
     ContentPoliciesPage,
+    ForgotPasswordPage,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +39,11 @@ import { SMS } from '@ionic-native/sms';
     MyApp,
     HomePage,
     RegisterPage,
+    LoginPage,
     TermsOfServicePage,
     PrivacyPoliciesPage,
     ContentPoliciesPage,
+    ForgotPasswordPage,
   ],
   providers: [
     StatusBar,

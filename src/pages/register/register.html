@@ -9,7 +9,7 @@
 <ion-content padding>
 
   <div class="centerDiv">
-    <form [formGroup]="loginForm" (submit)="RegisterUser()">
+    <form [formGroup]="signupForm" (submit)="RegisterUser()">
       <ion-item>
         <ion-label stacked>Name</ion-label>
         <ion-input type="text" #name formControlName="name" [(ngModel)]="user.name"></ion-input>
@@ -18,7 +18,7 @@
       <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input type="text" #password formControlName="email" [(ngModel)]="user.email"
-        [class.invalid]= "!loginForm.controls.email.valid && loginForm.controls.email.dirty" (input)="clearErrors()">
+        [class.invalid]= "!signupForm.controls.email.valid && signupForm.controls.email.dirty" (input)="clearErrors()">
         </ion-input>
         <div class="err-msg" *ngIf="returnInvalid" >
           <p>Unable to Login</p>
@@ -31,7 +31,7 @@
 				<ion-label stacked>Password</ion-label>
 				<ion-input #password formControlName="password" [(ngModel)]="user.password" type="password" ></ion-input>
 				<div class="err-msg"
-				*ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty && returnInvalid">
+				*ngIf="!signupForm.controls.password.valid && signupForm.controls.password.dirty && returnInvalid">
 				<p>Your password needs more than 6 characters.</p>
         </div>
       </ion-item>
@@ -48,7 +48,7 @@
         </ion-item>
         
       <!-- <div class="centerBtn">  -->
-      <button class="centerBtn" ion-button type="submit" [disabled]="!loginForm.valid || !checkedBoolean">SUBMIT</button>
+      <button class="centerBtn" ion-button type="submit" [disabled]="!signupForm.valid || !checkedBoolean">SUBMIT</button>
       <!-- </div> -->
     </form>
   </div>

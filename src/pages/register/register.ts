@@ -2,11 +2,19 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
+
 import { TermsOfServicePage } from '../terms-of-service/terms-of-service';
 import { PrivacyPoliciesPage } from '../privacy-policies/privacy-policies';
 import { ContentPoliciesPage } from '../content-policies/content-policies';
+import { HomePage } from '../home/home';
 
 import {SMS} from '@ionic-native/sms';
+
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { GlobalsProvider } from '../../providers/globals/globals';
+
+
+
 /**
  * Generated class for the RegisterPage page.
  *
@@ -22,13 +30,16 @@ import {SMS} from '@ionic-native/sms';
 export class RegisterPage {
 
   user:{ name?:any, email?:any, phonenumber?:any, password?:any, checkcondition?:any } ={};
-  public loginForm;
+  public signupForm;
   returnInvalid: boolean = false;
   checkedBoolean: boolean = false;
   OTPGenerated:number;
   OTPEntered:number;
+  errormessage: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder:FormBuilder,
-              public modalCtrl:ModalController,private sms:SMS, public alertCtrl:AlertController) {
+              public modalCtrl:ModalController,private sms:SMS, public alertCtrl:AlertController,
+              public fireData:FirebaseProvider,public globals:GlobalsProvider) {
     this.initializeForm();
     this.user.checkcondition=false;
   }
@@ -38,7 +49,7 @@ export class RegisterPage {
   }
 
   initializeForm() {
-		this.loginForm = this.formBuilder.group({
+		this.signupForm = this.formBuilder.group({
 			email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
       name: ['',Validators.compose([Validators.required])],
@@ -56,12 +67,12 @@ export class RegisterPage {
   async RegisterUser()
   {
     console.log("Clicked on Submit");
-    console.log(this.loginForm.value);
+    console.log(this.signupForm.value);
     // console.log( Math.floor(100000 + Math.random() * 900000) );
     this.OTPGenerated = Math.floor(100000 + Math.random() * 900000);
     console.log("OTP=",this.OTPGenerated);
     this.createAlert(); //remove this afterwards
-    this.sms.send(String(this.loginForm.value.phonenumber),'ayush').then((result)=>{
+    this.sms.send(String(this.signupForm.value.phonenumber),'ayush').then((result)=>{
       console.log('send');
       this.createAlert();
     }).catch((err)=>{
@@ -92,6 +103,7 @@ export class RegisterPage {
             if(this.OTPEntered==this.OTPGenerated)
             {
               console.log("Correct");
+              this.createUser();
             }
             else
             {
@@ -115,6 +127,25 @@ export class RegisterPage {
       this.checkedBoolean=false;
     }
     console.log(this.checkedBoolean);
+  }
+
+  createUser()
+  {
+    this.fireData.signupUser(this.signupForm.value.email,this.signupForm.value.password,
+      this.signupForm.value.name,this.signupForm.value.phonenumber).then((data)=>{
+        console.log(data);
+        this.createSuccessfulAlert();
+        this.navCtrl.push(HomePage);
+    })
+  }
+
+  createSuccessfulAlert()
+  {
+    let alert=this.alertCtrl.create({
+      title:'Success!',
+      message:'User is created Successfully',
+    });
+    alert.present();
   }
 
   tapOnPrivacyPolicies()
