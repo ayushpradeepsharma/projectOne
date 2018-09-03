@@ -20,6 +20,9 @@ import { GlobalsProvider } from '../providers/globals/globals';
 
 import { SMS } from '@ionic-native/sms';
 
+import { NgDatepickerModule } from 'ng2-datepicker';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -55,6 +58,8 @@ import { SMS } from '@ionic-native/sms';
     FirebaseProvider,
     GlobalsProvider,
     SMS,
+    NgDatepickerModule,
+    AngularDateTimePickerModule,
   ]
 })
 export class AppModule {}

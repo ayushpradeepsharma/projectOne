@@ -14,22 +14,28 @@
 
 <ion-content padding>
 
-  <!-- <form [formGroup]="addEventForm">
+  <form [formGroup]="addEventForm">
 
     <ion-item>
-      <ion-label stacked>Location</ion-label>
-      <ion-input #location type="text" formControlName="location" [(ngModel)]="event.location"></ion-input>
-    </ion-item>
+			<ion-label stacked>Title</ion-label>
+			<ion-input type="text" [(ngModel)]="title" formControlName="title"></ion-input>
+		</ion-item>
+		<div class="error-msg"></div>
 
-    <ion-item>
-      <ion-label stacked>Title</ion-label>
-      <ion-input #title type="text" fromControlName="title" [(ngModel)]="event.title"></ion-input>
-    </ion-item>
+		<ion-item>
+			<ion-label stacked>location</ion-label>
+			<ion-input type="text" [(ngModel)]="location" formControlName="location"></ion-input>
+		</ion-item>		
+		<div class="error-msg"></div>
+		
+		<ion-item>
+			<ion-label stacked>Description</ion-label>
+			<ion-textarea type="text" [(ngModel)]="description" formControlName="description"></ion-textarea>
+		</ion-item>
+    <div class="error-msg"></div> 
+    
 
-    <ion-item>
-      <ion-label stacked>Description</ion-label>
-      <ion-input #description type="text" fromControlName="description" [(ngModel)]="event.description"></ion-input>
-    </ion-item>
 
-  </form> -->
+    <button ion-button full >Add Event</button>
+  </form>
 </ion-content>

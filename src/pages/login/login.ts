@@ -5,7 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
-
+import { AddEventPage } from '../add-event/add-event';
+ 
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { GlobalsProvider } from '../../providers/globals/globals';
 /**
@@ -66,7 +67,7 @@ export class LoginPage {
         {
           text:'Ok',
           handler:()=>{
-            this.navCtrl.setRoot(HomePage);
+            this.navCtrl.setRoot(AddEventPage);
           }
         }
       ]
