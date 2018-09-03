@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController, AlertController} from 'ionic-angular';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { RegisterPage } from '../register/register';
+import { HomePage } from '../home/home';
+
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { GlobalsProvider } from '../../providers/globals/globals';
 /**
  * Generated class for the LoginPage page.
  *
@@ -19,9 +23,11 @@ import { RegisterPage } from '../register/register';
 export class LoginPage {
 
   public loginForm;
+  error:any;
   user: {email?:string,password?:string}={};
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder:FormBuilder,
-              public modalCtrl:ModalController) {
+              public modalCtrl:ModalController,public fireData:FirebaseProvider,public globals:GlobalsProvider,
+              public alertCtrl:AlertController) {
     this.initializeLoginForm();
   }
 
@@ -40,6 +46,47 @@ export class LoginPage {
   clickOnLogin()
   {
     console.log("cliked on login");
+    this.fireData.loginUser(this.loginForm.value.email,this.loginForm.value.password).then((data:any)=>{
+      console.log(data);
+      this.createLoginAlert();
+    }).catch((err)=>{
+      console.log(err);
+      this.error = err.message;
+      console.log("message",this.error);
+      this.createFailureAlert();
+    })
+  }
+
+  createLoginAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title:'Sucess!',
+      message:'You are logged in',
+      buttons:[
+        {
+          text:'Ok',
+          handler:()=>{
+            this.navCtrl.setRoot(HomePage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  createFailureAlert()
+  {
+    let alert = this.alertCtrl.create({
+      title: 'Failure!',
+      message: this.error,
+      buttons:[
+        {
+          text:'Ok',
+          role:'cancel',
+        }
+      ]
+    });
+    alert.present();
   }
 
   clickOnForgotPassword()

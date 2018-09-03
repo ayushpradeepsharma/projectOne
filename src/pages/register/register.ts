@@ -135,7 +135,7 @@ export class RegisterPage {
       this.signupForm.value.name,this.signupForm.value.phonenumber).then((data)=>{
         console.log(data);
         this.createSuccessfulAlert();
-        this.navCtrl.push(HomePage);
+        
     })
   }
 
@@ -144,6 +144,14 @@ export class RegisterPage {
     let alert=this.alertCtrl.create({
       title:'Success!',
       message:'User is created Successfully',
+      buttons:[
+        {
+          text:'Ok',
+          handler:()=>{
+            this.navCtrl.setRoot(HomePage);
+          }
+        }
+      ]
     });
     alert.present();
   }

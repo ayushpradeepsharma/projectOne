@@ -42,4 +42,17 @@ export class FirebaseProvider {
 		});
 	}
 
+	loginUser(email:string,password:string)
+	{
+		return new Promise((resolve,reject)=>{
+			firebase.auth().signInWithEmailAndPassword(email,password).then((data)=>{
+				console.log(data);
+				resolve(data);
+			}).catch((err)=>{
+				console.log(err);
+				reject(err);
+			})
+		})
+	}
+
 }
