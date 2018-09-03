@@ -55,4 +55,17 @@ export class FirebaseProvider {
 		})
 	}
 
+	resetPassword(email:string)
+	{
+		return new Promise((resolve,reject)=>{
+			firebase.auth().sendPasswordResetEmail(email).then((data)=>{
+				console.log(data);
+				resolve();
+			}).catch((err)=>{
+				console.log(err);
+				reject(err);
+			})
+		})
+	}
+
 }
