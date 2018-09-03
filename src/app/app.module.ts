@@ -6,11 +6,26 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { RegisterPage } from '../pages/register/register';
+import { TermsOfServicePage } from '../pages/terms-of-service/terms-of-service';
+import { PrivacyPoliciesPage } from '../pages/privacy-policies/privacy-policies';
+import { ContentPoliciesPage } from '../pages/content-policies/content-policies';
+
+
+
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { GlobalsProvider } from '../providers/globals/globals';
+
+import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    RegisterPage,
+    TermsOfServicePage,
+    PrivacyPoliciesPage,
+    ContentPoliciesPage,
   ],
   imports: [
     BrowserModule,
@@ -19,12 +34,19 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    RegisterPage,
+    TermsOfServicePage,
+    PrivacyPoliciesPage,
+    ContentPoliciesPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider,
+    GlobalsProvider,
+    SMS,
   ]
 })
 export class AppModule {}

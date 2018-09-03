@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register User</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div class="centerDiv">
+    <form [formGroup]="loginForm" (submit)="RegisterUser()">
+      <ion-item>
+        <ion-label stacked>Name</ion-label>
+        <ion-input type="text" #name formControlName="name" [(ngModel)]="user.name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" #password formControlName="email" [(ngModel)]="user.email"
+        [class.invalid]= "!loginForm.controls.email.valid && loginForm.controls.email.dirty" (input)="clearErrors()">
+        </ion-input>
+        <div class="err-msg" *ngIf="returnInvalid" >
+          <p>Unable to Login</p>
+        </div>
+      </ion-item>
+
+      
+      
+      <ion-item>
+				<ion-label stacked>Password</ion-label>
+				<ion-input #password formControlName="password" [(ngModel)]="user.password" type="password" ></ion-input>
+				<div class="err-msg"
+				*ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty && returnInvalid">
+				<p>Your password needs more than 6 characters.</p>
+        </div>
+      </ion-item>
+        
+        <ion-item>
+          <ion-label stacked>Mobile Number</ion-label>
+          <ion-input #phonenumber formControlName="phonenumber" [(ngModel)]="user.phonenumber" type="tel" ></ion-input>    
+        </ion-item>
+
+        <p>I agree to Enwite's <span style="color:#488aff;text-decoration: underline" (tap)="tapOnTermsOfService()">Terms of Service</span>, <span style="color:#488aff;text-decoration: underline" (tap)="tapOnPrivacyPolicies()">Privacy Policy</span> and<span style="color:#488aff;text-decoration: underline" (tap)="tapOnContentPolicies()"> Content Policies</span></p>
+        <ion-item>
+          <ion-label>I agree to Enwite's <span>Terms of Service</span>, <span>Privacy Policy</span> and<span> Content Policies</span></ion-label>
+          <ion-checkbox [(ngModel)]="user.checkcondition" formControlName="checkcondition" (ionChange)="checkboxClicked()"></ion-checkbox>
+        </ion-item>
+        
+      <!-- <div class="centerBtn">  -->
+      <button class="centerBtn" ion-button type="submit" [disabled]="!loginForm.valid || !checkedBoolean">SUBMIT</button>
+      <!-- </div> -->
+    </form>
+  </div>
+
+</ion-content>
