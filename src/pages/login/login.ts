@@ -49,6 +49,9 @@ export class LoginPage {
     console.log("cliked on login");
     this.fireData.loginUser(this.loginForm.value.email,this.loginForm.value.password).then((data:any)=>{
       console.log(data);
+      this.globals.userId=data.user.uid;
+      this.globals.userEmail=data.user.email;
+      console.log("user id=",this.globals.userId);
       this.createLoginAlert();
     }).catch((err)=>{
       console.log(err);

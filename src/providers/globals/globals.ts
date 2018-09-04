@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class GlobalsProvider {
 
   userId : any;
+  userEmail: any;
   constructor() {
     console.log('Hello GlobalsProvider Provider');
   }

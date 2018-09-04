@@ -1,9 +1,3 @@
-<!--
-  Generated template for the AddEventPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,7 +8,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="addEventForm">
+  <form [formGroup]="addEventForm" (submit)="clickOnCreateEvent()">
 
     <ion-item>
 			<ion-label stacked>Title</ion-label>
@@ -32,10 +26,46 @@
 			<ion-label stacked>Description</ion-label>
 			<ion-textarea type="text" [(ngModel)]="description" formControlName="description"></ion-textarea>
 		</ion-item>
-    <div class="error-msg"></div> 
-    
+		<div class="error-msg"></div> 
+		
+		<ion-item>
+			<ion-label stacked>Date</ion-label>
+			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="eventDate" formControlName="eventDate" ></ion-datetime>
+		</ion-item>
+	
+		<ion-item>
+			<ion-label stacked>Time</ion-label>
+			<ion-datetime displayFormat="HH:mm" [(ngModel)]="eventTime" formControlName="eventTime" ></ion-datetime>
+		</ion-item>
+	
+		<ion-item>
+			<ion-label stacked>Event Type</ion-label>
+			<ion-select [(ngModel)]="type" formControlName="type">
+					<ion-option value="openToAll">Open To all</ion-option>
+					<ion-option value="inviteOnly">Invite Only</ion-option>
+			</ion-select>
+		</ion-item>
 
+		<ion-item>
+				<ion-label stacked>Crowd Type</ion-label>
+				<ion-select [(ngModel)]="crowd" formControlName="crowd">
+						<ion-option value="everyone">EveryOne</ion-option>
+						<ion-option value="males">Males</ion-option>
+						<ion-option value="females">Females</ion-option>
+						<ion-option value="couples">Couples</ion-option>
+				</ion-select>
+		</ion-item>
 
-    <button ion-button full >Add Event</button>
+		<ion-item>
+			<ion-label stacked>Count</ion-label>
+			<ion-input type="number" [(ngModel)]="count" formControlName="count"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label stacked>Event Duration</ion-label>
+			<ion-input type="text" [(ngModel)]="duration" formControlName="duration"></ion-input>
+		</ion-item>
+
+    <button ion-button full [disabled]="!addEventForm.valid" type="submit">Create Event</button>
   </form>
 </ion-content>

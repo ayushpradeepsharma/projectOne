@@ -68,4 +68,24 @@ export class FirebaseProvider {
 		})
 	}
 
+	addEventToDatabase(event:any)
+	{
+		return new Promise((resolve,reject)=>{
+			var createdAt=moment().format();
+			var dbRef=firebase.database().ref('AllEvents').push();
+			var key=dbRef.key;
+			var dbRefTwo=firebase.database().ref('AllEvents').child(key);
+			dbRefTwo.set({
+				event:event,
+				key:key,
+				createdBy:this.globals.userId,
+				createdAt:createdAt,
+			},()=>{
+				resolve();
+			}).catch((err)=>{
+				console.log(err);
+			})
+		})
+	}
+
 }
