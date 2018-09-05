@@ -37,18 +37,21 @@ export class AddEventPage {
   initilizeaddEventForm()
   {
     this.addEventForm = this.formBuilder.group({
-      title: ['',Validators.compose([Validators.maxLength(30),Validators.required])],
+      title: ['',Validators.compose([Validators.required])],
       location: ['',Validators.compose([Validators.required],)],
-      description: ['',Validators.compose([Validators.maxLength(100),Validators.required])],
+      description: ['',Validators.compose([Validators.required])],
       eventDate: ['',Validators.compose([Validators.required])],
       eventTime: ['',Validators.compose([Validators.required])],
       type: ['',Validators.compose([Validators.required])],
       crowd: ['',Validators.compose([Validators.required])],
-      count: ['',Validators.compose([Validators.maxLength(30),Validators.required])],
+      count: ['',Validators.compose([Validators.required])],
       duration: ['',Validators.compose([Validators.required])],
     })
   }
 
+  // Validators.maxLength(30),
+  // Validators.maxLength(100),
+  // Validators.maxLength(30),
   clickOnCreateEvent()
   {
     console.log("Clicked on Create Event");

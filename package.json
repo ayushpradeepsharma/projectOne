@@ -30,6 +30,7 @@
     "intl-tel-input": "^13.0.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "ng2-datepicker": "^3.1.1",
     "rxjs": "5.5.11",

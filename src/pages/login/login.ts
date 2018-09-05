@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
-import { AddEventPage } from '../add-event/add-event';
+// import { AddEventPage } from '../add-event/add-event';
  
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { GlobalsProvider } from '../../providers/globals/globals';
@@ -26,6 +26,9 @@ export class LoginPage {
   public loginForm;
   error:any;
   user: {email?:string,password?:string}={};
+
+  segment: any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder:FormBuilder,
               public modalCtrl:ModalController,public fireData:FirebaseProvider,public globals:GlobalsProvider,
               public alertCtrl:AlertController) {
@@ -70,7 +73,7 @@ export class LoginPage {
         {
           text:'Ok',
           handler:()=>{
-            this.navCtrl.setRoot(AddEventPage);
+            this.navCtrl.setRoot(HomePage);
           }
         }
       ]

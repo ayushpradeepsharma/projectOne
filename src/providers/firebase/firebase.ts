@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import { GlobalsProvider } from '../globals/globals';
 
 /*
@@ -85,6 +86,21 @@ export class FirebaseProvider {
 			}).catch((err)=>{
 				console.log(err);
 			})
+		})
+	}
+
+	getEvents()
+	{
+		var eventsArr=[];
+		return new Promise((resolve,reject)=>{
+			var dbRef=firebase.database().ref('AllEvents');
+			dbRef.on('value',(events)=>{
+				eventsArr= _.toArray(events.val());
+				console.log(eventsArr);
+				resolve(eventsArr);
+			})
+		}).catch((err)=>{
+			console.log(err);
 		})
 	}
 
