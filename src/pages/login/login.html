@@ -12,7 +12,96 @@
 
 </ion-header>
 
+
 <ion-content padding>
+  <ion-card>
+  <ion-segment [(ngModel)]="segment" color="primary">
+    <ion-segment-button value="signIn">
+      SignIn
+    </ion-segment-button>
+    <ion-segment-button value="signUp">
+      SignUp
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [(ngSwitch)]="segment">
+
+    <div class="signInScreen" *ngSwitchCase="'signIn'">
+      <form [formGroup]="loginForm">
+
+        <span style="margin-top:1em;display:block;text-align: center;font-size:1.5em;">Sign in</span>
+        <ion-item style="margin-top:1em;">
+          <ion-label stacked style="display:block; margin:auto;">EMAIL</ion-label>
+          <ion-input style="background-color: 	#F4F4F4;" type="email" [(ngModel)]="user.email" #email formControlName="email"></ion-input>
+        </ion-item>
+        <div class="error-msg"></div>
+    
+        <ion-item>
+          <ion-label stacked style="display:block; margin:auto;">PASSWORD</ion-label>
+          <ion-input style="background-color: 	#F4F4F4;" type="password" [(ngModel)]="user.password" #password formControlName="password"></ion-input>
+        </ion-item>
+        <div class="error-msg"></div>
+        <div style="margin-left: 1.1em;margin-right: 0.9em;">
+          <button block ion-button style="margin-top:2em;" [disabled]="!loginForm.valid" (click)="clickOnLogin()">LOGIN</button>
+        </div>
+       
+      </form>
+    
+      <button style="float:right;color:black; " ion-button clear (click)="clickOnForgotPassword()">Forgot Password?</button>
+    </div>
+
+    <div class="signUpScreen" *ngSwitchCase="'signUp'">
+
+      <form [formGroup]="signupForm" (submit)="RegisterUser()">
+
+        <span style="margin-top:1em;display:block;text-align:center;font-size: 1.5em;">Signup</span>
+        <ion-item style="margin-top:1em;">
+          <ion-label stacked style="display:block; margin:auto;">Name</ion-label>
+          <ion-input style="background-color: 	#F4F4F4;" type="text" #name formControlName="name" [(ngModel)]="User.name"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label stacked style="display:block; margin:auto;">Email</ion-label>
+          <ion-input style="background-color: 	#F4F4F4;" type="text" #password formControlName="email" [(ngModel)]="User.email"
+          [class.invalid]= "!signupForm.controls.email.valid && signupForm.controls.email.dirty" (input)="clearErrors()">
+          </ion-input>
+          <div class="err-msg" *ngIf="returnInvalid" >
+            <p>Unable to Login</p>
+          </div>
+        </ion-item>
+  
+        
+        
+        <ion-item>
+          <ion-label stacked style="display:block; margin:auto;">Password</ion-label>
+          <ion-input style="background-color: 	#F4F4F4;" #password formControlName="password" [(ngModel)]="User.password" type="password" ></ion-input>
+          <div class="err-msg"
+          *ngIf="!signupForm.controls.password.valid && signupForm.controls.password.dirty && returnInvalid">
+          <p>Your password needs more than 6 characters.</p>
+          </div>
+        </ion-item>
+          
+          <ion-item>
+            <ion-label stacked style="display:block; margin:auto;">Mobile Number</ion-label>
+            <ion-input style="background-color: 	#F4F4F4;" #phonenumber formControlName="phonenumber" [(ngModel)]="User.phonenumber" type="tel" ></ion-input>    
+          </ion-item>
+  
+          <p style="margin-left:1em;margin-right:1em;margin-top:1em;">I agree to Enwite's <span style="color:#488aff;text-decoration: underline" (tap)="tapOnTermsOfService()">Terms of Service</span>, <span style="color:#488aff;text-decoration: underline" (tap)="tapOnPrivacyPolicies()">Privacy Policy</span> and<span style="color:#488aff;text-decoration: underline" (tap)="tapOnContentPolicies()"> Content Policies</span></p>
+          <ion-item>
+            <ion-label>I agree </ion-label>
+            <ion-checkbox [(ngModel)]="User.checkcondition" formControlName="checkcondition" (ionChange)="checkboxClicked()"></ion-checkbox>
+          </ion-item>
+          
+        <div style="margin-left:1.1em; margin-right: 0.9em;"> 
+        <button  ion-button block type="submit" [disabled]="!signupForm.valid || !checkedBoolean">SUBMIT</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</ion-card>
+</ion-content>
+<!-- <ion-content padding>
 
   <form [formGroup]="loginForm">
 
@@ -34,4 +123,4 @@
   <button ion-button block clear (click)="clickOnForgotPassword()">Forgot Password</button>
 
   <p text-center color="primary"><b>NOT A USER? <span style="text-decoration: underline" (click)="clickOnCreateUser()">CREATE USER</span></b></p>
-</ion-content>
+</ion-content> -->
