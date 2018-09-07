@@ -17,6 +17,7 @@ import { EmailValidator } from '../../validators/email';
 import { TermsOfServicePage } from '../terms-of-service/terms-of-service';
 import { PrivacyPoliciesPage } from '../privacy-policies/privacy-policies';
 import { ContentPoliciesPage } from '../content-policies/content-policies';
+import { anchorDef } from '@angular/core/src/view';
 /**
  * Generated class for the LoginPage page.
  *
@@ -136,7 +137,7 @@ export class LoginPage {
 			email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
       name: ['',Validators.compose([Validators.required])],
-      phonenumber: ['',Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
+      phonenumber: ['',Validators.compose([Validators.required])],
       checkcondition:['',Validators.compose([Validators.required])],
 		});
   }
@@ -147,19 +148,29 @@ export class LoginPage {
 		}
   }
   
-  async RegisterUser()
+   RegisterUser()
   {
+    var options:{
+      replaceLineBreaks:true,
+      android:{
+        intent:''
+      }
+    }
     console.log("Clicked on Submit");
     console.log(this.signupForm.value);
     // console.log( Math.floor(100000 + Math.random() * 900000) );
     this.OTPGenerated = Math.floor(100000 + Math.random() * 900000);
     console.log("OTP=",this.OTPGenerated);
+    console.log(typeof(this.OTPGenerated));
+    console.log(typeof(String(this.OTPGenerated)));
     this.createAlert(); //remove this afterwards
-    this.sms.send(String(this.signupForm.value.phonenumber),'ayush').then((result)=>{
+    this.sms.send(String(this.signupForm.value.phonenumber),String(this.OTPGenerated),options).then((result)=>{
       console.log('send');
+      console.log(result);
       this.createAlert();
     }).catch((err)=>{
       console.log(err);
+      alert(JSON.stringify(err));
     })
   }
 
@@ -191,6 +202,7 @@ export class LoginPage {
             else
             {
               console.log("Incorrect");
+              this.createNotSuccessfulAlert();
             }
           }
         }
@@ -232,6 +244,23 @@ export class LoginPage {
           text:'Ok',
           handler:()=>{
             this.navCtrl.setRoot(HomePage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  createNotSuccessfulAlert()
+  {
+    let alert=this.alertCtrl.create({
+      title:'Failure!',
+      message:'Entered OTP is wrong',
+      buttons:[
+        {
+          text:'Ok',
+          handler:()=>{
+            
           }
         }
       ]

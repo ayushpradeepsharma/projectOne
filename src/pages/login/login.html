@@ -36,7 +36,7 @@
         </ion-item>
         <div class="error-msg"></div>
     
-        <ion-item>
+        <ion-item style="margin-top:0.5em;">
           <ion-label stacked style="display:block; margin:auto;">PASSWORD</ion-label>
           <ion-input style="background-color: 	#F4F4F4;" type="password" [(ngModel)]="user.password" #password formControlName="password"></ion-input>
         </ion-item>
@@ -60,7 +60,7 @@
           <ion-input style="background-color: 	#F4F4F4;" type="text" #name formControlName="name" [(ngModel)]="User.name"></ion-input>
         </ion-item>
   
-        <ion-item>
+        <ion-item style="margin-top:0.5em;">
           <ion-label stacked style="display:block; margin:auto;">Email</ion-label>
           <ion-input style="background-color: 	#F4F4F4;" type="text" #password formControlName="email" [(ngModel)]="User.email"
           [class.invalid]= "!signupForm.controls.email.valid && signupForm.controls.email.dirty" (input)="clearErrors()">
@@ -69,10 +69,8 @@
             <p>Unable to Login</p>
           </div>
         </ion-item>
-  
         
-        
-        <ion-item>
+        <ion-item style="margin-top:0.5em;">
           <ion-label stacked style="display:block; margin:auto;">Password</ion-label>
           <ion-input style="background-color: 	#F4F4F4;" #password formControlName="password" [(ngModel)]="User.password" type="password" ></ion-input>
           <div class="err-msg"
@@ -81,13 +79,13 @@
           </div>
         </ion-item>
           
-          <ion-item>
+          <ion-item style="margin-top:0.5em;">
             <ion-label stacked style="display:block; margin:auto;">Mobile Number</ion-label>
             <ion-input style="background-color: 	#F4F4F4;" #phonenumber formControlName="phonenumber" [(ngModel)]="User.phonenumber" type="tel" ></ion-input>    
           </ion-item>
   
           <p style="margin-left:1em;margin-right:1em;margin-top:1em;">I agree to Enwite's <span style="color:#488aff;text-decoration: underline" (tap)="tapOnTermsOfService()">Terms of Service</span>, <span style="color:#488aff;text-decoration: underline" (tap)="tapOnPrivacyPolicies()">Privacy Policy</span> and<span style="color:#488aff;text-decoration: underline" (tap)="tapOnContentPolicies()"> Content Policies</span></p>
-          <ion-item>
+          <ion-item style="margin-top:0.5em;">
             <ion-label>I agree </ion-label>
             <ion-checkbox [(ngModel)]="User.checkcondition" formControlName="checkcondition" (ionChange)="checkboxClicked()"></ion-checkbox>
           </ion-item>

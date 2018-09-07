@@ -40,7 +40,7 @@ export class HomePage {
     console.log('In infinite scroll');
     console.log(this.items);
     setTimeout(() => {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < this.events.length-20; i++) {
         this.items.push( this.events[this.items.length] );
       }
 
