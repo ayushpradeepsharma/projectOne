@@ -51,6 +51,8 @@
       <button class="centerBtn" ion-button type="submit" [disabled]="!signupForm.valid || !checkedBoolean">SUBMIT</button>
       <!-- </div> -->
     </form>
+    <div id="recaptcha-container"></div>
+    <button id="sign-in-button" ion-button (click)="verifyNumber()"></button>
   </div>
 
 </ion-content>

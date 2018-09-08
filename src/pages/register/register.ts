@@ -13,7 +13,7 @@ import {SMS} from '@ionic-native/sms';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { GlobalsProvider } from '../../providers/globals/globals';
 
-
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the RegisterPage page.
@@ -37,6 +37,27 @@ export class RegisterPage {
   OTPEntered:number;
   errormessage: any;
 
+  // recaptchaVerifier  = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+  //   'size': 'normal',
+  //   'callback': function(response) {
+  //     // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //     // ...
+  //   },
+  //   'expired-callback': function() {
+  //     // Response expired. Ask user to solve reCAPTCHA again.
+  //     // ...
+  //   }
+  // });
+
+  // recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  //   'size': 'invisible',
+  //   'callback': function(response) {
+  //     // reCAPTCHA solved, allow signInWithPhoneNumber.
+      
+  //   }
+  // });
+  public recaptchaVerifier;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public formBuilder:FormBuilder,
               public modalCtrl:ModalController,private sms:SMS, public alertCtrl:AlertController,
               public fireData:FirebaseProvider,public globals:GlobalsProvider) {
@@ -46,6 +67,13 @@ export class RegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': function(response) {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        
+      }
+    });
   }
 
   initializeForm() {
@@ -176,5 +204,21 @@ export class RegisterPage {
     var modal=this.modalCtrl.create(ContentPoliciesPage);
     modal.present();
   }
+
+  verifyNumber()
+	{
+		var phoneNumber = this.signupForm.value.phonenumber;
+		var appVerifier = this.recaptchaVerifier;
+		firebase.auth().signInWithPhoneNumber('+919650075963', appVerifier)
+    .then(function (confirmationResult) {
+      console.log("Send");
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+    
+    }).catch(function (error) {
+      // Error; SMS not sent
+      // ...
+    });
+	}
 
 }
