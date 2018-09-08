@@ -52,7 +52,7 @@
 
     <div class="signUpScreen" *ngSwitchCase="'signUp'">
 
-      <form [formGroup]="signupForm" (submit)="RegisterUser()">
+      <form [formGroup]="signupForm" >
 
         <span style="margin-top:1em;display:block;text-align:center;font-size: 1.5em;">Signup</span>
         <ion-item style="margin-top:1em;">
@@ -91,11 +91,14 @@
           </ion-item>
           
         <div style="margin-left:1.1em; margin-right: 0.9em;"> 
-        <button  ion-button block type="submit" [disabled]="!signupForm.valid || !checkedBoolean">SUBMIT</button>
+          <div id="recaptcha-container"></div>
+          <button id="sign-in-button" ion-button block (click)="verifyNumber()" [disabled]="!signupForm.valid || !checkedBoolean">Verify Number</button>
+        <button  ion-button block (click)="RegisterUser()" [disabled]="!signupForm.valid || !checkedBoolean">SUBMIT</button>
         </div>
         
       </form>
-      
+     
+     
     </div>
   </div>
 </ion-card>

@@ -18,6 +18,7 @@ import { TermsOfServicePage } from '../terms-of-service/terms-of-service';
 import { PrivacyPoliciesPage } from '../privacy-policies/privacy-policies';
 import { ContentPoliciesPage } from '../content-policies/content-policies';
 import { anchorDef } from '@angular/core/src/view';
+import * as firebase from 'firebase';
 /**
  * Generated class for the LoginPage page.
  *
@@ -45,12 +46,15 @@ export class LoginPage {
   OTPGenerated:number;
   OTPEntered:number;
   errormessage: any;
+  public recaptchaVerifier;
+
+  verified:boolean=false;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder:FormBuilder,
               public modalCtrl:ModalController,public fireData:FirebaseProvider,public globals:GlobalsProvider,
               public alertCtrl:AlertController,private sms:SMS) {
     
-    this.segment="signIn"
+    this.segment="signUp"
     this.initializeLoginForm();
     this.initializeForm();
     this.User.checkcondition=false;
@@ -58,6 +62,13 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': function(response) {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        
+      }
+    });
   }
 
   initializeLoginForm()
@@ -148,31 +159,47 @@ export class LoginPage {
 		}
   }
   
-   RegisterUser()
-  {
-    var options:{
-      replaceLineBreaks:true,
-      android:{
-        intent:''
-      }
-    }
-    console.log("Clicked on Submit");
-    console.log(this.signupForm.value);
-    // console.log( Math.floor(100000 + Math.random() * 900000) );
-    this.OTPGenerated = Math.floor(100000 + Math.random() * 900000);
-    console.log("OTP=",this.OTPGenerated);
-    console.log(typeof(this.OTPGenerated));
-    console.log(typeof(String(this.OTPGenerated)));
-    this.createAlert(); //remove this afterwards
-    this.sms.send(String(this.signupForm.value.phonenumber),String(this.OTPGenerated),options).then((result)=>{
-      console.log('send');
-      console.log(result);
-      this.createAlert();
-    }).catch((err)=>{
-      console.log(err);
-      alert(JSON.stringify(err));
-    })
-  }
+  //  RegisterUser()
+  // {
+  //   var options:{
+  //     replaceLineBreaks:true,
+  //     android:{
+  //       intent:''
+  //     }
+  //   }
+  //   console.log("Clicked on Submit");
+  //   console.log(this.signupForm.value);
+  //   // console.log( Math.floor(100000 + Math.random() * 900000) );
+  //   this.OTPGenerated = Math.floor(100000 + Math.random() * 900000);
+  //   console.log("OTP=",this.OTPGenerated);
+  //   console.log(typeof(this.OTPGenerated));
+  //   console.log(typeof(String(this.OTPGenerated)));
+  //   this.createAlert(); //remove this afterwards
+  //   this.sms.send(String(this.signupForm.value.phonenumber),String(this.OTPGenerated),options).then((result)=>{
+  //     console.log('send');
+  //     console.log(result);
+  //     this.createAlert();
+  //   }).catch((err)=>{
+  //     console.log(err);
+  //     alert(JSON.stringify(err));
+  //   })
+  // }
+
+  verifyNumber()
+	{
+		var phoneNumber = this.signupForm.value.phonenumber;
+		var appVerifier = this.recaptchaVerifier;
+		firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    .then(function (confirmationResult) {
+      console.log("Send");
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+    
+    }).catch(function (error) {
+      // Error; SMS not sent
+      // ...
+    });
+	}
 
   createAlert()
   {
