@@ -97,7 +97,11 @@
         </div>
         
       </form>
-     
+      <ion-item>
+        <ion-label stacked>Enter OTP</ion-label>
+        <ion-input type="text" [(ngModel)]="otp"></ion-input>
+      </ion-item>>
+      <button ion-button (click)="getCode()">Verify</button>
      
     </div>
   </div>

@@ -47,7 +47,8 @@ export class LoginPage {
   OTPEntered:number;
   errormessage: any;
   public recaptchaVerifier;
-
+  otp:any;
+  code:any;
   verified:boolean=false;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder:FormBuilder,
@@ -194,12 +195,29 @@ export class LoginPage {
       console.log("Send");
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
+   
+      confirmationResult.confirm('111111').then(function (result) {
+        // User signed in successfully.
+        console.log('success');
+        var user = result.user;
+        // ...
+      }).catch(function (error) {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        console.log(error);
+      });
     
     }).catch(function (error) {
       // Error; SMS not sent
       // ...
+      console.log(error);
     });
-	}
+  }
+  
+  getCode()
+  {
+    this.code = this.otp;
+  }
 
   createAlert()
   {
